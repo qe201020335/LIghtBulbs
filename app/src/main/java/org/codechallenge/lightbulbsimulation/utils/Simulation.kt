@@ -1,6 +1,8 @@
 package org.codechallenge.lightbulbsimulation.utils
 
 import org.codechallenge.lightbulbsimulation.model.SimulationResult
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 class Simulation {
     companion object {
@@ -33,7 +35,7 @@ class Simulation {
             // add to a set to deduplicate
         }
 
-        print(resultSet)
+        // print(resultSet)
 
         return resultSet.size
     }
@@ -44,9 +46,11 @@ class Simulation {
             return 0.0
         }
         if (numToPull == 1) {
+            // You can only get 1 color if you pulled only 1 bulb
             return 1.0
         }
         if (numToPull == BulbCosntants.TOTLE_NUMBER_BULB) {
+            // You get all the colors if you pulled all bulbs out
             return BulbCosntants.NUMBER_OF_COLORS.toDouble()
         }
         // formula from http://www.adellera.it/static_html/investigations/distinct_balls/distinct_balls.pdf
@@ -61,15 +65,37 @@ class Simulation {
 
     fun runSimulations(numToPull: Int, theoryMean: Double, maxSims: Int) : SimulationResult {
 
+        val z99 = 0.1257 // z-score for 1% confidence interval i.e 99% confident level
+
         var sampleMean = 0.0
         for (i in 1 .. maxSims) {
+            val sample = List(i) {
+                pullOnce(numToPull)
+            }
+            sampleMean = sample.sum().toDouble() / sample.size
+            println("Sample Mean: $sampleMean")
 
+            var sampleStdDeviation = 0.0
+            for (eachSim in sample) {
+                sampleStdDeviation += (eachSim - sampleMean).pow(2.0)
+            }
+            sampleStdDeviation = sqrt(sampleStdDeviation / sample.size )
+            println("Sample Standard Deviation: $sampleStdDeviation")
 
+            val sampleStdErr = sampleStdDeviation / sqrt(sample.size.toDouble())
+            println("Sample Standard Error: $sampleStdErr")
 
+            // then we have a confidence interval
+            val intervalUp = sampleMean + z99 * sampleStdErr
+            val intervalDown = sampleMean - z99 * sampleStdErr
+            println("Interval $intervalDown $intervalUp")
+
+            if (theoryMean in intervalDown..intervalUp) {
+                // We have finished!
+                return SimulationResult(false, sampleMean, i)
+            }
         }
-
-
-
+        // we didn't finish in maxSims times of simulation
         return SimulationResult(true, sampleMean, maxSims)
     }
 
