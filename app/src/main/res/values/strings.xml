@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Light Bulb Simulation</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_home">Simulation</string>
+    <string name="title_dashboard">Expected Value</string>
+    <string name="title_notifications">Credits</string>
+    <string name="pull_it">PUll IT!</string>
+    <string name="time_to_pull_some_bulbs">Time to pull some bulbs !</string>
+    <string name="how_many_do_you_want">How many do you want?</string>
 </resources>
