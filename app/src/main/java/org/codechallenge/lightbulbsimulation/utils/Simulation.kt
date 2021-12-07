@@ -19,7 +19,7 @@ class Simulation {
             return 1
         }
         // randomly select numbers from a list of 0-69
-        val randomSelections = sequenceOf(0.. BulbCosntants.TOTLE_NUMBER_BULB).flatten().shuffled().take(numToPull)
+        val randomSelections = sequenceOf(0 until BulbCosntants.TOTLE_NUMBER_BULB).flatten().shuffled().take(numToPull)
 
         // println(randomSelections)
 
