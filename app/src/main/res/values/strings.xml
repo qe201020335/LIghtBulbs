@@ -7,4 +7,11 @@
     <string name="time_to_pull_some_bulbs">Time to pull some bulbs!</string>
     <string name="how_many_do_you_want">How many do you want?</string>
     <string name="total_number">There are %d bulbs in total.</string>
+    <string name="time_to_find_the_expected_vale">Time to find the expected vale!</string>
+    <string name="set">SET</string>
+    <string name="number_of_bulbs_to_pull_each_time">Number of bulbs to pull each time</string>
+    <string name="maximum_number_of_simulations">Maximum number of simulations</string>
+    <string name="run_simulation">Run Simulation!</string>
+    <string name="theory_text">Theoretically, with %d bulb each time, you will get %d colors on average</string>
+    <string name="expected_result">Took %d runs to get the expected number %d</string>
 </resources>
