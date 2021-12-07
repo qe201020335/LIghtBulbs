@@ -19,15 +19,15 @@ class Simulation {
             return 1
         }
         // randomly select numbers from a list of 0-69
-        val randomSelections = sequenceOf(0..69).flatten().shuffled().take(numToPull)
+        val randomSelections = sequenceOf(0.. BulbCosntants.TOTLE_NUMBER_BULB).flatten().shuffled().take(numToPull)
 
         // println(randomSelections)
 
         val resultSet = mutableSetOf<Int>()
 
         for (number in randomSelections) {
-            resultSet.add(number / 10)
-            // use division to decide which color from 0 to 6
+            resultSet.add(number / BulbCosntants.NUMBER_OF_BULB_EACH_COLOR)
+            // use integer division to decide which color
             // add to a set to deduplicate
         }
 

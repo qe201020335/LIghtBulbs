@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import org.codechallenge.lightbulbsimulation.R
 import org.codechallenge.lightbulbsimulation.databinding.FragmentHomeBinding
+import org.codechallenge.lightbulbsimulation.utils.BulbCosntants
 
 class HomeFragment : Fragment() {
 
@@ -36,7 +37,12 @@ class HomeFragment : Fragment() {
         })
 
         val numInput: EditText = binding.editTextNumber
-        numInput.setText("1")
+        numInput.setText("0")
+
+        val totalNumberText = getString(R.string.total_number, BulbCosntants.TOTLE_NUMBER_BULB)
+//        println(totalNumberText)
+        val totalNumberTextView: TextView = binding.textTotalNumber
+        totalNumberTextView.text = totalNumberText
 
         val pullButton: Button = binding.pull
         pullButton.setOnClickListener{
