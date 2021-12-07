@@ -3,6 +3,7 @@ package org.codechallenge.lightbulbsimulation.ui.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import org.codechallenge.lightbulbsimulation.utils.Simulation
 
 class HomeViewModel : ViewModel() {
 
@@ -12,7 +13,7 @@ class HomeViewModel : ViewModel() {
     val text: LiveData<String> = _text
 
     fun pull(input : String) {
-        var numToPull: Int = 0;
+        val numToPull: Int
         try {
             numToPull = input.toInt()
         } catch (e : NumberFormatException) {
@@ -25,7 +26,8 @@ class HomeViewModel : ViewModel() {
         } else if (numToPull > 70) {
             _text.apply { value = "There are only 70 bulbs!"}
         } else {
-            _text.apply { value = input }
+            val numOfColors = Simulation.getInstance().pullOnce(numToPull)
+            _text.apply { value = "You pulled $numOfColors colors!" }
         }
     }
 }
