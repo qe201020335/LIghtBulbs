@@ -89,6 +89,7 @@ class Simulation {
 
             if (theoryMean in intervalDown..intervalUp) {
                 // We have finished!
+                println("Expected Value: $sampleMean")
                 return SimulationResult(false, sampleMean, i)
             }
         }

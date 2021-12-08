@@ -8,7 +8,6 @@ class SimulationResult(notEnoughSims: Boolean, sampleMean: Double, numSims: Int)
 
 
     override fun toString(): String {
-        println("Expected Value: $sampleMean")
         if (notEnoughSims) {
             return "Can't reach 99% confident level with $numSims simulations.\nThe simulation expected value is ${"%.2f".format(sampleMean)}"
         } else {
