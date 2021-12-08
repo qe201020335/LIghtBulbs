@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.codechallenge.lightbulbsimulation.model.SimulationResult
 import org.codechallenge.lightbulbsimulation.utils.BulbCosntants
 import org.codechallenge.lightbulbsimulation.utils.Simulation
 
@@ -37,16 +39,23 @@ class DashboardViewModel : ViewModel() {
             return
         }
         // calculate theory mean
-        val theoryMean = Simulation.getInstance().calculateTheoryMean(numToPull);
+        val theoryMean = Simulation.getInstance().calculateTheoryMean(numToPull)
         println("Theory Mean: $theoryMean")
         _theory.apply { value = "Theoretically, with $numToPull bulb each time, you will get ${"%.2f".format(theoryMean)} colors on average" }
 
         _result.apply { value = "Running simulations..." }
         // run simulations
-        viewModelScope.launch(Dispatchers.Main) {
-            _result.apply { value = Simulation.getInstance().runSimulations(numToPull, theoryMean, maxSims).toString()}
+        viewModelScope.launch(Dispatchers.Default) {
+            val result : SimulationResult = Simulation.getInstance().runSimulations(numToPull, theoryMean, maxSims)
+            withContext(Dispatchers.Main) {
+                collectSimulationData(result)
+            }
         }
 
+    }
+
+    private fun collectSimulationData(result: SimulationResult) {
+        _result.apply{ value = result.toString()}
     }
 
     private fun checkInputs() : Boolean {
