@@ -73,22 +73,22 @@ class Simulation {
                 pullOnce(numToPull)
             }
             sampleMean = sample.sum().toDouble() / sample.size
-            println("Sample Mean: $sampleMean")
+//            println("Sample Mean: $sampleMean")
 
             var sampleStdDeviation = 0.0
             for (eachSim in sample) {
                 sampleStdDeviation += (eachSim - sampleMean).pow(2.0)
             }
             sampleStdDeviation = sqrt(sampleStdDeviation / sample.size )
-            println("Sample Standard Deviation: $sampleStdDeviation")
+//            println("Sample Standard Deviation: $sampleStdDeviation")
 
             val sampleStdErr = sampleStdDeviation / sqrt(sample.size.toDouble())
-            println("Sample Standard Error: $sampleStdErr")
+//            println("Sample Standard Error: $sampleStdErr")
 
             // then we have a confidence interval
             val intervalUp = sampleMean + z99 * sampleStdErr
             val intervalDown = sampleMean - z99 * sampleStdErr
-            println("Interval $intervalDown $intervalUp")
+//            println("Interval $intervalDown $intervalUp")
 
             if (theoryMean in intervalDown..intervalUp) {
                 // We have finished!
