@@ -50,7 +50,7 @@ class DashboardFragment : Fragment() {
         val maxSims: EditText = binding.textMaxSims
         maxSims.setText("1")
 
-        val totalNumberText = getString(R.string.total_number, BulbCosntants.TOTLE_NUMBER_BULB)
+        val totalNumberText = getString(R.string.total_number, BulbCosntants.TOTAL_NUMBER_BULB)
         val totalNumberTextView: TextView = binding.textTotalNumber
         totalNumberTextView.text = totalNumberText
 

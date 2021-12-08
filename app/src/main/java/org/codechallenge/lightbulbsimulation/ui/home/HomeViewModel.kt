@@ -24,8 +24,8 @@ class HomeViewModel : ViewModel() {
 
         if (numToPull <= 0) {
             _text.apply { value = "Too bad you did not get any bulbs." }
-        } else if (numToPull > BulbCosntants.TOTLE_NUMBER_BULB) {
-            _text.apply { value = "There are only ${BulbCosntants.TOTLE_NUMBER_BULB} bulbs!"}
+        } else if (numToPull > BulbCosntants.TOTAL_NUMBER_BULB) {
+            _text.apply { value = "There are only ${BulbCosntants.TOTAL_NUMBER_BULB} bulbs!"}
         } else {
             val numOfColors = Simulation.getInstance().pullOnce(numToPull)
             _text.apply { value = "You pulled $numOfColors colors!" }

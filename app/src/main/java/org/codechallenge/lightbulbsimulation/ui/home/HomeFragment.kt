@@ -39,7 +39,7 @@ class HomeFragment : Fragment() {
         val numInput: EditText = binding.editTextNumber
         numInput.setText("0")
 
-        val totalNumberText = getString(R.string.total_number, BulbCosntants.TOTLE_NUMBER_BULB)
+        val totalNumberText = getString(R.string.total_number, BulbCosntants.TOTAL_NUMBER_BULB)
 //        println(totalNumberText)
         val totalNumberTextView: TextView = binding.textTotalNumber
         totalNumberTextView.text = totalNumberText

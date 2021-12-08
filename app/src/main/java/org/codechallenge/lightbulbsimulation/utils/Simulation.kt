@@ -8,6 +8,7 @@ class Simulation {
     companion object {
         private var instance : Simulation? = null
         fun getInstance() : Simulation {
+            // Singleton
             if (instance == null) {
                 instance = Simulation()
             }
@@ -23,9 +24,8 @@ class Simulation {
             return 1
         }
         // randomly select numbers from a list of 0-69
-        val randomSelections = sequenceOf(0 until BulbCosntants.TOTLE_NUMBER_BULB).flatten().shuffled().take(numToPull)
+        val randomSelections = sequenceOf(0 until BulbCosntants.TOTAL_NUMBER_BULB).flatten().shuffled().take(numToPull)
 
-        // println(randomSelections)
 
         val resultSet = mutableSetOf<Int>()
 
@@ -36,7 +36,7 @@ class Simulation {
         }
 
         // print(resultSet)
-
+        // size of the set is just the number of unique colors
         return resultSet.size
     }
 
@@ -49,7 +49,7 @@ class Simulation {
             // You can only get 1 color if you pulled only 1 bulb
             return 1.0
         }
-        if (numToPull == BulbCosntants.TOTLE_NUMBER_BULB) {
+        if (numToPull == BulbCosntants.TOTAL_NUMBER_BULB) {
             // You get all the colors if you pulled all bulbs out
             return BulbCosntants.NUMBER_OF_COLORS.toDouble()
         }
@@ -57,7 +57,7 @@ class Simulation {
         // Section 2.2
         var product = 1.0
         for (i in 0 until BulbCosntants.NUMBER_OF_BULB_EACH_COLOR ) {
-            product *= 1 - (numToPull.toDouble() / (BulbCosntants.TOTLE_NUMBER_BULB - i).toDouble())
+            product *= 1 - (numToPull.toDouble() / (BulbCosntants.TOTAL_NUMBER_BULB - i).toDouble())
         }
 
         return BulbCosntants.NUMBER_OF_COLORS * (1 - product)
@@ -69,33 +69,30 @@ class Simulation {
 
         var sampleMean = 0.0
         for (i in 1 .. maxSims) {
+            // keep running simulations until our sample mean reaches 99% confident level
             val sample = List(i) {
                 pullOnce(numToPull)
             }
             sampleMean = sample.sum().toDouble() / sample.size
-//            println("Sample Mean: $sampleMean")
 
             var sampleStdDeviation = 0.0
             for (eachSim in sample) {
                 sampleStdDeviation += (eachSim - sampleMean).pow(2.0)
             }
             sampleStdDeviation = sqrt(sampleStdDeviation / sample.size )
-//            println("Sample Standard Deviation: $sampleStdDeviation")
 
             val sampleStdErr = sampleStdDeviation / sqrt(sample.size.toDouble())
-//            println("Sample Standard Error: $sampleStdErr")
 
             // then we have a confidence interval
             val intervalUp = sampleMean + z99 * sampleStdErr
             val intervalDown = sampleMean - z99 * sampleStdErr
-//            println("Interval $intervalDown $intervalUp")
 
             if (theoryMean in intervalDown..intervalUp) {
                 // We have finished!
                 return SimulationResult(false, sampleMean, i)
             }
         }
-        // we didn't finish in maxSims times of simulation
+        // we didn't reach desired confident level in maxSims times of simulation
         return SimulationResult(true, sampleMean, maxSims)
     }
 

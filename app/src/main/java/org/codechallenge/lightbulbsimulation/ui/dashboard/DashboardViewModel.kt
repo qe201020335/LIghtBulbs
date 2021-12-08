@@ -62,8 +62,8 @@ class DashboardViewModel : ViewModel() {
         if (numToPull < 1) {
             _theory.apply { value = "At least one bulb each pull" }
             return false
-        } else if (numToPull > BulbCosntants.TOTLE_NUMBER_BULB) {
-            _theory.apply { value = "There are only ${BulbCosntants.TOTLE_NUMBER_BULB} bulbs!" }
+        } else if (numToPull > BulbCosntants.TOTAL_NUMBER_BULB) {
+            _theory.apply { value = "There are only ${BulbCosntants.TOTAL_NUMBER_BULB} bulbs!" }
             return false
         }
         if (maxSims < 1) {
